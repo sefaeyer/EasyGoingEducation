@@ -1,0 +1,18 @@
+/* COMMON */
+$color1: rgb(250, 197, 76);
+$color2: rgb(16, 68, 81);
+$color3: rgb(237, 237, 237);
+$color4: rgb(7, 27, 32);
+$color1-op-50: rgb(250, 197, 76, 0.5);
+$color2-op-50: rgb(16, 68, 81, 0.5);
+$color1-op-30: rgb(250, 197, 76, 0.3);
+$color2-op-30: rgb(16, 68, 81, 0.3);
+$color1-op-10: rgb(250, 197, 76, 0.1);
+$color2-op-10: rgb(16, 68, 81, 0.1);
+
+$vendors: ("", "-webkit-", "-moz-", "-ms-", "-o-");
+
+/* BOOTSTRAP */
+$font-family-sans-serif: var(--font-montserrat);
+$primary: $color2;
+$secondary: $color1;
