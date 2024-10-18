@@ -9,6 +9,13 @@
         #{$v}border-radius: $radius;
     }
 }
+
+@mixin transform($val) {
+	@each $v in $vendors {
+		#{$v}transform: $val;
+	}
+}
+
 @mixin fligran($color: gray, $opacity: 0.5) {
     background-color: rgba($color, $opacity);
     position: absolute;
