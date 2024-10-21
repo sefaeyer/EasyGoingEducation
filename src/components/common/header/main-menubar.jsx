@@ -9,7 +9,7 @@ import { config } from '@/helpers/config'
 
 export const MainMenubar = () => {
   return (
-    <Navbar expand="lg" sticky='top' className="bg-body-tertiary ">
+    <Navbar expand="lg" sticky='top' className="bg-body-tertiary" collapseOnSelect>
           <Container >
             <Logo/>
             <Navbar.Toggle aria-controls="main-menu" />

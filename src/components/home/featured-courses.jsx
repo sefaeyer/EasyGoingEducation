@@ -1,7 +1,7 @@
 import React from 'react'
 import { SectionTitle } from '../common/section-title/section-title'
 import { Courses } from '../courses/courses'
-import "./featured-home.scss"
+import "./featured-courses.scss"
 
 export const FeaturedCourses = () => {
   return (
