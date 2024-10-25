@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { FloatingLabel, FormControl, InputGroup } from "react-bootstrap";
 
@@ -10,15 +10,14 @@ export const PasswordInput = ({
 	iconBefore,
 	...rest
 }) => {
-
 	const [type, setType] = useState("password");
 
-	const handleClick = () => { 
+	const handleClick = () => {
 		setType((prev) => (prev === "password" ? "text" : "password"));
-	 }
+	};
 
 	return (
-		<InputGroup className={className}>
+		<InputGroup className={`${className} ${errorMessage ? "mb-5" : ""}`}>
 			{!!iconBefore && (
 				<InputGroup.Text>
 					<i className={`pi pi-${iconBefore}`}></i>
@@ -33,16 +32,18 @@ export const PasswordInput = ({
 					isInvalid={!!errorMessage}
 					{...rest}
 				/>
-				<FormControl.Feedback type="invalid">
+				<FormControl.Feedback type="invalid" style={{ position: "absolute" }}>
 					{errorMessage}
 				</FormControl.Feedback>
 			</FloatingLabel>
-			
-				<InputGroup.Text onClick={handleClick}>
-					{type === "password" ? (<i className={`pi pi-eye-slash`}></i> ):(
-					<i className={`pi pi-eye`}></i>)}
-				</InputGroup.Text>
-			
+
+			<InputGroup.Text onClick={handleClick}>
+				{type === "password" ? (
+					<i className="pi pi-eye"></i>
+				) : (
+					<i className="pi pi-eye-slash"></i>
+				)}
+			</InputGroup.Text>
 		</InputGroup>
 	);
 };

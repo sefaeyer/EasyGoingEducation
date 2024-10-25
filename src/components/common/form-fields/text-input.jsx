@@ -1,4 +1,5 @@
-"use client"
+
+"use client";
 import React from "react";
 import { FloatingLabel, FormControl, InputGroup } from "react-bootstrap";
 
@@ -12,7 +13,7 @@ export const TextInput = ({
 	...rest
 }) => {
 	return (
-		<InputGroup className={className}>
+		<InputGroup className={`${className} ${errorMessage ? "mb-5" : ""}`}>
 			{!!iconBefore && (
 				<InputGroup.Text>
 					<i className={`pi pi-${iconBefore}`}></i>
@@ -26,7 +27,10 @@ export const TextInput = ({
 					isInvalid={!!errorMessage}
 					{...rest}
 				/>
-				<FormControl.Feedback type="invalid">
+				<FormControl.Feedback
+					type="invalid"
+					style={{ position: "absolute" }}
+				>
 					{errorMessage}
 				</FormControl.Feedback>
 			</FloatingLabel>
