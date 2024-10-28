@@ -1,4 +1,3 @@
-
 import { auth } from "@/auth";
 import React from "react";
 import { UserMenu } from "./user-menu";
@@ -10,8 +9,6 @@ export const AuthMenu = async () => {
 
 	const role = session?.user?.role;
 	const userMenu = role ? userMenuData[role.toLowerCase()] : null;
-
-    console.log(role, userMenu)
 
 	return (
 		<>
