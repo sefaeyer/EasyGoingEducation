@@ -3,7 +3,7 @@ import { getGenderValues } from "../misc";
 
 const genders = getGenderValues();
 
-export const AdminSchema = Yup.object({
+export const ManagerSchema = Yup.object({
 	birthDay: Yup.date()
 		.typeError("Invalid date")
 		.max(new Date(), "Invalid birthdate")

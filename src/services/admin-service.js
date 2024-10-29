@@ -22,6 +22,7 @@ export const createAdmin = async (payload) => {
 	return fetch(`${ADMIN_CREATE_API}`, {
 		method: "POST",
 		headers: await getAuthHeader(),
+		body: JSON.stringify(payload)
 	});
 };
 

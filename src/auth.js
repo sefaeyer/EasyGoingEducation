@@ -35,7 +35,7 @@ const config = {
 
             if (isLoggedIn) {
                 if (isInLoginPage) {
-                    const url = new URL("/dashboard", request.url);
+                    const url = new URL("dashboard", request.nextUrl.origin);
                     return Response.redirect(url);
                 }
                 else if(isInDashboardPages) {

@@ -1,5 +1,5 @@
 "use client";
-import { createAdminAction } from "@/actions/admin-actions";
+import { updateManagerAction } from "@/actions/manager-actions";
 import {
 	DateInput,
 	FormContainer,
@@ -15,20 +15,21 @@ import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
 import { useFormState } from "react-dom";
 
-export const AdminCreateForm = () => {
-	const [state, dispatch] = useFormState(createAdminAction, initialResponse);
+export const ManagerEditForm = ({ user }) => {
+	const [state, dispatch] = useFormState(
+		updateManagerAction,
+		initialResponse
+	);
 	const router = useRouter();
-
-	console.log(state);
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/admin");
+		if (state.ok) router.push("/dashboard/manager");
 	}
 
+	
 	return (
 		<FormContainer>
 			<form action={dispatch}>
@@ -36,6 +37,7 @@ export const AdminCreateForm = () => {
 					name="name"
 					className="mb-3"
 					label="First name"
+					defaultValue={user?.name}
 					errorMessage={state?.errors?.name}
 				/>
 
@@ -43,6 +45,7 @@ export const AdminCreateForm = () => {
 					name="surname"
 					className="mb-3"
 					label="Last name"
+					defaultValue={user?.surname}
 					errorMessage={state?.errors?.surname}
 				/>
 
@@ -54,6 +57,7 @@ export const AdminCreateForm = () => {
 					options={config.genders}
 					optionLabel="label"
 					optionValue="value"
+					defaultValue={user?.gender}
 				/>
 
 				<TextInput
@@ -61,6 +65,7 @@ export const AdminCreateForm = () => {
 					name="birthDay"
 					className="mb-3"
 					label="Date of borth"
+					defaultValue={user?.birthDay}
 					errorMessage={state?.errors?.birthDay}
 				/>
 
@@ -68,6 +73,7 @@ export const AdminCreateForm = () => {
 					name="birthPlace"
 					className="mb-3"
 					label="Place of birth"
+					defaultValue={user?.birthPlace}
 					errorMessage={state?.errors?.birthPlace}
 				/>
 
@@ -76,6 +82,7 @@ export const AdminCreateForm = () => {
 					className="mb-3"
 					label="Phone number"
 					mask="999-999-9999"
+					defaultValue={user?.phoneNumber}
 					errorMessage={state?.errors?.phoneNumber}
 				/>
 
@@ -84,6 +91,7 @@ export const AdminCreateForm = () => {
 					className="mb-3"
 					label="SSN"
 					mask="999-99-9999"
+					defaultValue={user?.ssn}
 					errorMessage={state?.errors?.ssn}
 				/>
 
@@ -91,6 +99,7 @@ export const AdminCreateForm = () => {
 					name="username"
 					className="mb-3"
 					label="Username"
+					defaultValue={user?.username}
 					errorMessage={state?.errors?.username}
 				/>
 

@@ -1,5 +1,5 @@
 "use client";
-import { createAdminAction } from "@/actions/admin-actions";
+import { createManagerAction } from "@/actions/manager-actions";
 import {
 	DateInput,
 	FormContainer,
@@ -15,18 +15,18 @@ import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
 import { useFormState } from "react-dom";
 
-export const AdminCreateForm = () => {
-	const [state, dispatch] = useFormState(createAdminAction, initialResponse);
+export const ManagerCreateForm = () => {
+	const [state, dispatch] = useFormState(
+		createManagerAction,
+		initialResponse
+	);
 	const router = useRouter();
-
-	console.log(state);
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/admin");
+		if (state.ok) router.push("/dashboard/manager");
 	}
 
 	return (

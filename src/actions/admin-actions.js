@@ -18,8 +18,10 @@ export const createAdminAction = async (prevState, formData) => {
 		const res = await createAdmin(fields);
 		const data = await res.json();
 
+		console.log(data)
+
 		if (!res.ok) {
-			return response(false, "", data?.validations);
+			return response(false, data?.message, data?.validations);
 		}
 
 		revalidatePath("/dashboard/admin");
