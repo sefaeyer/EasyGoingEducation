@@ -18,8 +18,8 @@ export const AdminToolbar = (row) => {
 	};
 
 	return (
-		<Button variant="secondary">
-			<i className="pi pi-trash" onClick={handleDelete}></i>
+		<Button variant="secondary" onClick={handleDelete}>
+			<i className="pi pi-trash"></i>
 		</Button>
 	);
 };

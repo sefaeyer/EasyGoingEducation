@@ -1,11 +1,11 @@
 "use client";
-import { deleteManagerAction } from "@/actions/manager-actions";
+import { deleteAssistantAction } from "@/actions/assistant-action";
 import { swAlert, swConfirm } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "react-bootstrap";
 
-export const ManagerToolbar = (row) => {
+export const AssistantToolbar = (row) => {
 	const { name, surname, userId } = row;
 	const router = useRouter();
 
@@ -15,12 +15,12 @@ export const ManagerToolbar = (row) => {
 		);
 		if (!answer.isConfirmed) return;
 
-		const res = await deleteManagerAction(userId);
+		const res = await deleteAssistantAction(userId);
 		swAlert(res.message, res.ok ? "success" : "error");
 	};
 
 	const handleEdit = () => {
-		router.push(`/dashboard/manager/${userId}`);
+		router.push(`/dashboard/assistant-manager/${userId}`);
 	};
 
 	return (

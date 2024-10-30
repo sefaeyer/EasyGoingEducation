@@ -22,8 +22,6 @@ export const AdminCreateForm = () => {
 	const [state, dispatch] = useFormState(createAdminAction, initialResponse);
 	const router = useRouter();
 
-	console.log(state);
-
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
 		if (state.ok) router.push("/dashboard/admin");
@@ -60,7 +58,7 @@ export const AdminCreateForm = () => {
 					type="date"
 					name="birthDay"
 					className="mb-3"
-					label="Date of borth"
+					label="Date of birth"
 					errorMessage={state?.errors?.birthDay}
 				/>
 

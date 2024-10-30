@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { login } from "./services/auth-service";
+import { getIsTokenValid, getIsUserAuthorized } from "./helpers/auth-helper";
 
 const config = {
 	providers: [
@@ -27,11 +28,11 @@ const config = {
 		authorized({ auth, request }) {
 			
             const { pathname } = request.nextUrl;
-
-            const userRole = auth?.user?.role; 
-            const isLoggedIn = !!userRole;
+			const userRole = auth?.user?.role;
             const isInLoginPage = pathname.startsWith("/login");
             const isInDashboardPages = pathname.startsWith("/dashboard");
+			const isLoggedIn = getIsTokenValid(auth?.accessToken);
+			
 
             if (isLoggedIn) {
                 if (isInLoginPage) {
@@ -39,8 +40,12 @@ const config = {
                     return Response.redirect(url);
                 }
                 else if(isInDashboardPages) {
-                    // rolebased routing
-                    return true;
+                    const isUserAuthorized = getIsUserAuthorized(userRole, pathname);
+					if(!isUserAuthorized) {
+						const url = new URL("/unauthorized", request.nextUrl.origin);
+						return Response.redirect(url);
+					}
+                    
                 }
 
                 return true;
@@ -48,8 +53,6 @@ const config = {
             else if(isInDashboardPages) {
                 return false;
             }
-
-
 
 
 			return true;
@@ -63,6 +66,9 @@ const config = {
 		// session a ihtiyac duyulan her yerde bu callback calisir.
 		async session({ session, token }) {
 			const { accessToken, user } = token;
+
+			const isTokenValid = getIsTokenValid(accessToken);
+			if (!isTokenValid) return null; // Burasi kullanicinin session ini iptal eder.
 
             session.user = user;
             session.accessToken = accessToken;

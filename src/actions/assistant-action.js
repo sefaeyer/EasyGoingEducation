@@ -6,23 +6,27 @@ import {
 	transformYupErrors,
 	YupValidationError,
 } from "@/helpers/form-validation";
-import { ManagerSchema } from "@/helpers/schemas/manager-schema";
-import { createManager, deleteManager, updateManager } from "@/services/manager-service";
+import { AssistantSchema } from "@/helpers/schemas/assistant-schema";
+import {
+	createAssistant,
+	deleteAssistant,
+	updateAssistant,
+} from "@/services/assistant-service";
 import { revalidatePath } from "next/cache";
 
-export const createManagerAction = async (prevState, formData) => {
+export const createAssistantAction = async (prevState, formData) => {
 	try {
 		const fields = transformFormDataToJSON(formData);
-		ManagerSchema.validateSync(fields, { abortEarly: false });
+		AssistantSchema.validateSync(fields, { abortEarly: false });
 
-		const res = await createManager(fields);
+		const res = await createAssistant(fields);
 		const data = await res.json();
 
 		if (!res.ok) {
 			return response(false, data?.message, data?.validations);
 		}
 
-		revalidatePath("/dashboard/manager");
+		revalidatePath("/dashboard/assistant-manager");
 
 		return response(true, data?.message, null);
 	} catch (err) {
@@ -34,23 +38,22 @@ export const createManagerAction = async (prevState, formData) => {
 	}
 };
 
-export const updateManagerAction = async (prevState, formData) => {
-
-	if(!formData.get("id")) throw new Error("Id is missing in update manager action!");
-
+export const updateAssistantAction = async (prevState, formData) => {
+	if (!formData.get("id"))
+		throw new Error("Id is missing in update assistant action!");
 
 	try {
 		const fields = transformFormDataToJSON(formData);
-		ManagerSchema.validateSync(fields, { abortEarly: false });
+		AssistantSchema.validateSync(fields, { abortEarly: false });
 
-		const res = await updateManager(fields);
+		const res = await updateAssistant(fields);
 		const data = await res.json();
 
 		if (!res.ok) {
 			return response(false, data?.message, data?.validations);
 		}
 
-		revalidatePath("/dashboard/manager");
+		revalidatePath("/dashboard/assistant-manager");
 
 		return response(true, data?.message, null);
 	} catch (err) {
@@ -62,18 +65,18 @@ export const updateManagerAction = async (prevState, formData) => {
 	}
 };
 
-export const deleteManagerAction = async (id) => {
+export const deleteAssistantAction = async (id) => {
 	if (!id) throw new Error("Id is missing!");
 
 	try {
-		const res = await deleteManager(id);
+		const res = await deleteAssistant(id);
 		const data = await res.json();
 
 		if (!res.ok) {
 			return response(false, data?.message, null);
 		}
 
-		revalidatePath("/dashboard/manager");
+		revalidatePath("/dashboard/assistant-manager");
 
 		return response(true, data?.message, null);
 	} catch (err) {

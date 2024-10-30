@@ -5,23 +5,23 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { AdminToolbar } from "./admin-toolbar";
+import { AssistantToolbar } from "./assistant-toolbar";
 
-export const AdminList = ({ data }) => {
+export const AssistantList = ({ data }) => {
 	const router = useRouter();
 	const { content, size, totalElements, number } = data;
 
 	const header = (
 		<div className="d-flex justify-content-between align-items-center">
-			<h2>Admins</h2>
-			<Link href="/dashboard/admin/new" className="btn btn-primary">
+			<h2>Assistants</h2>
+			<Link href="/dashboard/assistant-manager/new" className="btn btn-primary">
 				<i className="pi pi-plus"></i> New
 			</Link>
 		</div>
 	);
 
 	const onPage = (e) => {
-		router.push(`/dashboard/admin?page=${e.page}`);
+		router.push(`/dashboard/assistant-manager?page=${e.page}`);
 	};
 
 	return (
@@ -47,7 +47,11 @@ export const AdminList = ({ data }) => {
 				<Column field="name" header="First name" />
 				<Column field="surname" header="Last name" />
 				<Column field="username" header="Username" />
-				<Column header="" body={AdminToolbar} bodyStyle={{ textAlign: "right" }}/>
+				<Column
+					header=""
+					body={AssistantToolbar}
+					bodyStyle={{ textAlign: "right" }}
+				/>
 			</DataTable>
 		</Container>
 	);

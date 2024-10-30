@@ -1,5 +1,5 @@
 "use client";
-import { createManagerAction } from "@/actions/manager-actions";
+import { createAssistantAction } from "@/actions/assistant-action";
 import {
 	DateInput,
 	FormContainer,
@@ -17,16 +17,16 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormState } from "react-dom";
 
-export const ManagerCreateForm = () => {
+export const AssistantCreateForm = () => {
 	const [state, dispatch] = useFormState(
-		createManagerAction,
+		createAssistantAction,
 		initialResponse
 	);
 	const router = useRouter();
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/manager");
+		if (state.ok) router.push("/dashboard/assistant-manager");
 	}
 
 	return (
