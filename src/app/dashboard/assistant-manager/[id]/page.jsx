@@ -1,22 +1,20 @@
 import { PageHeader } from "@/components/common/page-header/page-header";
 import { Spacer } from "@/components/common/spacer/spacer";
-import { AssistantList } from "@/components/dashboard/assistant-manager/assistant-list";
-import { getAllAssistantsByPage } from "@/services/assistant-service";
+import { AssistantEditForm } from "@/components/dashboard/assistant-manager/manager-edit-form";
+import { getAssistantById } from "@/services/assistant-service";
 import React from "react";
 
-const Page = async ({ searchParams }) => {
-	const { page } = searchParams;
-
-	const res = await getAllAssistantsByPage(page);
+const Page = async ({ params }) => {
+	const res = await getAssistantById(params.id);
 	const data = await res.json();
 
-	if (!res.ok) throw new Error(data.message);
+	if (!res.ok) throw new Error(data?.message);
 
 	return (
 		<>
-			<PageHeader title="Assistants" />
+			<PageHeader title="Edit Assistant" />
 			<Spacer />
-			<AssistantList data={data} />
+			<AssistantEditForm user={data?.object} />
 			<Spacer />
 		</>
 	);

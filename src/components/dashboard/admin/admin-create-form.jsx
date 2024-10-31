@@ -15,7 +15,6 @@ import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
 import { useFormState } from "react-dom";
 
 export const AdminCreateForm = () => {
@@ -54,8 +53,7 @@ export const AdminCreateForm = () => {
 					optionValue="value"
 				/>
 
-				<TextInput
-					type="date"
+				<DateInput
 					name="birthDay"
 					className="mb-3"
 					label="Date of birth"

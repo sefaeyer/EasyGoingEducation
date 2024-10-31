@@ -26,34 +26,34 @@ const config = {
 		// middleware da ayarlandigi sekliyle, NextAuth un kapsama alanina giren sayfalara yapilan isteklerden hemen once authorized callback i calisir.
 		// Bu callback icinde dondurulen true veya false ifadesine gore talep edilen sayfa acilir veya acilmaz.
 		authorized({ auth, request }) {
-			
-            const { pathname } = request.nextUrl;
+			const { pathname } = request.nextUrl;
 			const userRole = auth?.user?.role;
-            const isInLoginPage = pathname.startsWith("/login");
-            const isInDashboardPages = pathname.startsWith("/dashboard");
+			const isInLoginPage = pathname.startsWith("/login");
+			const isInDashboardPages = pathname.startsWith("/dashboard");
 			const isLoggedIn = getIsTokenValid(auth?.accessToken);
-			
 
-            if (isLoggedIn) {
-                if (isInLoginPage) {
-                    const url = new URL("dashboard", request.nextUrl.origin);
-                    return Response.redirect(url);
-                }
-                else if(isInDashboardPages) {
-                    const isUserAuthorized = getIsUserAuthorized(userRole, pathname);
-					if(!isUserAuthorized) {
-						const url = new URL("/unauthorized", request.nextUrl.origin);
+			if (isLoggedIn) {
+				if (isInLoginPage) {
+					const url = new URL("dashboard", request.nextUrl.origin);
+					return Response.redirect(url);
+				} else if (isInDashboardPages) {
+					const isUserAuthorized = getIsUserAuthorized(
+						userRole,
+						pathname
+					);
+					if (!isUserAuthorized) {
+						const url = new URL(
+							"/unauthorized",
+							request.nextUrl.origin
+						);
 						return Response.redirect(url);
 					}
-                    
-                }
+				}
 
-                return true;
-            }
-            else if(isInDashboardPages) {
-                return false;
-            }
-
+				return true;
+			} else if (isInDashboardPages) {
+				return false;
+			}
 
 			return true;
 		},
@@ -70,9 +70,9 @@ const config = {
 			const isTokenValid = getIsTokenValid(accessToken);
 			if (!isTokenValid) return null; // Burasi kullanicinin session ini iptal eder.
 
-            session.user = user;
-            session.accessToken = accessToken;
-            return session;
+			session.user = user;
+			session.accessToken = accessToken;
+			return session;
 		},
 	},
 	pages: {
