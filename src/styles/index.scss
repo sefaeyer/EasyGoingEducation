@@ -27,6 +27,11 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
 	box-shadow: none;
 }
 
+.form-floating > .form-control.p-multiselect{
+     height: auto !important;
+	 display: inline-flex !important;
+}
+
 .form-select:focus-within,
 .form-control:focus-within {
 	color: var(--bs-body-color);

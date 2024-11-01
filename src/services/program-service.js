@@ -14,7 +14,7 @@ import { getAuthHeader } from "@/helpers/auth-helper";
 export const getAllProgramsByPage = async (
 	page = 0,
 	size = 10,
-	sort = "day",
+	sort = "id",
 	type = "asc"
 ) => {
 	const qs = `page=${page}&size=${size}&sort=${sort}&type=${type}`;
@@ -61,6 +61,9 @@ export const getProgramsByStudent = async () => {
 };
 
 export const createProgram = async (payload) => {
+
+	console.log(JSON.stringify(payload))
+
 	return fetch(`${PROGRAM_CREATE_API}`, {
 		method: "POST",
 		headers: await getAuthHeader(),
