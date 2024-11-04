@@ -62,8 +62,6 @@ export const getProgramsByStudent = async () => {
 
 export const createProgram = async (payload) => {
 
-	console.log(JSON.stringify(payload))
-
 	return fetch(`${PROGRAM_CREATE_API}`, {
 		method: "POST",
 		headers: await getAuthHeader(),

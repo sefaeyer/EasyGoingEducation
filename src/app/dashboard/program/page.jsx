@@ -1,6 +1,7 @@
 import { PageHeader } from "@/components/common/page-header/page-header";
 import { Spacer } from "@/components/common/spacer/spacer";
 import { ProgramList } from "@/components/dashboard/program/program-list";
+import { UnAssignedProgramList } from "@/components/dashboard/program/unassigned-program-list";
 import {
 	getAllProgramsByPage,
 	getUnAssignedPrograms,
@@ -21,13 +22,22 @@ const Page = async ({ searchParams }) => {
 		dataTeachers,
 	]);
 
+	const newTeachers = teachers.map((item) => ({
+		value: item.userId,
+		label: `${item.name} ${item.surname}`,
+	}));
+
+
 	return (
 		<>
 			<PageHeader title="Programs" />
 			<Spacer />
 			<ProgramList data={allPrograms} />
 			<Spacer />
-			
+			<UnAssignedProgramList
+				programs={unAssignedPrograms}
+				teachers={newTeachers}
+			/>
 			<Spacer />
 		</>
 	);

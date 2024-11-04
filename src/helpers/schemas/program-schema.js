@@ -1,16 +1,13 @@
 import * as Yup from "yup";
 import { getDayValues } from "../misc";
 import { isLater } from "../date-time";
+import { isStringArray } from "../form-validation";
 
 const days = getDayValues();
 
 export const ProgramSchema = Yup.object({
 	lessonIdList: Yup.string()
-		.test("isArr", "Invalid lesson type", (val) => {
-			// "[12,56,4,76]" buraya bu sekilde string gelecek
-			const arr = JSON.parse(val);
-			return Array.isArray(arr) && arr.length > 0;
-		})
+		.test("isArr", "Invalid lesson type", (val) => isStringArray(val))
 		.required("Lessons is required"),
 	day: Yup.string().oneOf(days, "Invalid day").required("Day is required"),
 	educationTermId: Yup.number()

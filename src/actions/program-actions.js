@@ -14,7 +14,7 @@ export const createProgramAction = async (prevState, formData) => {
 
 	try {
 		const fields = transformFormDataToJSON(formData);
-		console.log(fields)
+		
 		ProgramSchema.validateSync(fields, { abortEarly: false });
 
 		const payload = {

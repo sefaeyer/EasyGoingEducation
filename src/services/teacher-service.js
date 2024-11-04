@@ -51,6 +51,9 @@ export const deleteTeacher = async (id) => {
 };
 
 export const assignProgramToTeacher = async (payload) => {
+
+	console.log(JSON.stringify(payload))
+
 	return fetch(`${TEACHER_ASSIGN_PROGRAM_API}`, {
 		method: "POST",
 		headers: await getAuthHeader(),
