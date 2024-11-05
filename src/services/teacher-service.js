@@ -1,5 +1,13 @@
-
-import { TEACHER_ASSIGN_PROGRAM_API, TEACHER_CREATE_API, TEACHER_DELETE_API, TEACHER_GET_ALL_API, TEACHER_GET_ALL_BY_PAGE_API, TEACHER_GET_BY_ID_API, TEACHER_UPDATE_API } from "@/helpers/api-routes";
+import {
+	ADVISOR_GET_ALL_API,
+	TEACHER_ASSIGN_PROGRAM_API,
+	TEACHER_CREATE_API,
+	TEACHER_DELETE_API,
+	TEACHER_GET_ALL_API,
+	TEACHER_GET_ALL_BY_PAGE_API,
+	TEACHER_GET_BY_ID_API,
+	TEACHER_UPDATE_API,
+} from "@/helpers/api-routes";
 import { getAuthHeader } from "@/helpers/auth-helper";
 
 export const getAllTeachersByPage = async (
@@ -17,6 +25,12 @@ export const getAllTeachersByPage = async (
 
 export const getAllTeachers = async () => {
 	return fetch(`${TEACHER_GET_ALL_API}`, {
+		headers: await getAuthHeader(),
+	});
+};
+
+export const getAllAdvisorTeachers = async () => {
+	return fetch(`${ADVISOR_GET_ALL_API}`, {
 		headers: await getAuthHeader(),
 	});
 };
@@ -51,8 +65,7 @@ export const deleteTeacher = async (id) => {
 };
 
 export const assignProgramToTeacher = async (payload) => {
-
-	console.log(JSON.stringify(payload))
+	console.log(JSON.stringify(payload));
 
 	return fetch(`${TEACHER_ASSIGN_PROGRAM_API}`, {
 		method: "POST",

@@ -9,9 +9,9 @@ import {
 	SelectInput,
 	SubmitButton,
 	TextInput,
+	BackButton,
+	MultipleSelect
 } from "@/components/common/form-fields";
-import { BackButton } from "@/components/common/form-fields/back-button";
-import { MultipleSelect } from "@/components/common/form-fields/multiple-select";
 import { config } from "@/helpers/config";
 import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";

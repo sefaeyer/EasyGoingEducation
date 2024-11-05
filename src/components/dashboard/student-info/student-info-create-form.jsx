@@ -1,40 +1,48 @@
 "use client";
-import { createProgramAction } from "@/actions/program-actions";
+import { createStudentInfoAction } from "@/actions/student-info-actions";
 import {
 	FormContainer,
 	SelectInput,
 	SubmitButton,
+	TextInput,
 	BackButton,
-	MultipleSelect,
-	TimeInput
 } from "@/components/common/form-fields";
-import { config } from "@/helpers/config";
 import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormState } from "react-dom";
 
-export const ProgramCreateForm = ({ lessons, terms }) => {
+export const StudentInfoCreateForm = ({ lessons, students, terms }) => {
 	const [state, dispatch] = useFormState(
-		createProgramAction,
+		createStudentInfoAction,
 		initialResponse
 	);
 	const router = useRouter();
 
-	if (state?.message) {
+	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/program");
+		if (state.ok) router.push("/dashboard/student-info");
 	}
 
 	return (
 		<FormContainer>
 			<form action={dispatch}>
-				<MultipleSelect
-					name="lessonIdList"
+				<SelectInput
+					name="studentId"
 					className="mb-3"
-					label="Lessons"
-					errorMessage={state?.errors?.lessonIdList}
+					label="Student"
+					errorMessage={state?.errors?.studentId}
+					options={students}
+					optionLabel="label"
+					optionValue="value"
+				/>
+
+				<SelectInput
+					name="lessonId"
+					className="mb-3"
+					label="Lesson"
+					errorMessage={state?.errors?.lessonId}
 					options={lessons}
 					optionLabel="lessonName"
 					optionValue="lessonId"
@@ -50,28 +58,35 @@ export const ProgramCreateForm = ({ lessons, terms }) => {
 					optionValue="value"
 				/>
 
-				<SelectInput
-					name="day"
+				<TextInput
+					name="absentee"
+					type="number"
 					className="mb-3"
-					label="Day"
-					errorMessage={state?.errors?.day}
-					options={config.days}
-					optionLabel="label"
-					optionValue="value"
+					label="Absentee"
+					errorMessage={state?.errors?.absentee}
 				/>
 
-				<TimeInput
-					name="startTime"
+				<TextInput
+					name="midtermExam"
+					type="number"
 					className="mb-3"
-					label="Start time"
-					errorMessage={state?.errors?.startTime}
+					label="Midterm"
+					errorMessage={state?.errors?.midtermExam}
 				/>
 
-				<TimeInput
-					name="stopTime"
+				<TextInput
+					name="finalExam"
+					type="number"
 					className="mb-3"
-					label="End time"
-					errorMessage={state?.errors?.stopTime}
+					label="Final"
+					errorMessage={state?.errors?.finalExam}
+				/>
+
+				<TextInput
+					name="infoNote"
+					className="mb-3"
+					label="Info"
+					errorMessage={state?.errors?.infoNote}
 				/>
 
 				<BackButton className="me-2" />

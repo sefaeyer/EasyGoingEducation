@@ -1,5 +1,5 @@
 "use client";
-import { createAssistantAction } from "@/actions/assistant-action";
+import { createStudentAction } from "@/actions/student-actions";
 import {
 	DateInput,
 	FormContainer,
@@ -17,16 +17,16 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useFormState } from "react-dom";
 
-export const AssistantCreateForm = () => {
+export const StudentCreateForm = ({ advisorTeachers }) => {
 	const [state, dispatch] = useFormState(
-		createAssistantAction,
+		createStudentAction,
 		initialResponse
 	);
 	const router = useRouter();
 
 	if (state.message) {
 		swAlert(state.message, state.ok ? "success" : "error");
-		if (state.ok) router.push("/dashboard/assistant-manager");
+		if (state.ok) router.push("/dashboard/student");
 	}
 
 	return (
@@ -61,6 +61,7 @@ export const AssistantCreateForm = () => {
 					className="mb-3"
 					label="Date of birth"
 					errorMessage={state?.errors?.birthDay}
+					dateFormat="yy-mm-dd"
 				/>
 
 				<TextInput
@@ -78,12 +79,43 @@ export const AssistantCreateForm = () => {
 					errorMessage={state?.errors?.phoneNumber}
 				/>
 
+				<TextInput
+					name="email"
+					className="mb-3"
+					label="Email"
+					errorMessage={state?.errors?.email}
+				/>
+
 				<MaskedInput
 					name="ssn"
 					className="mb-3"
 					label="SSN"
 					mask="999-99-9999"
 					errorMessage={state?.errors?.ssn}
+				/>
+
+				<TextInput
+					name="fatherName"
+					className="mb-3"
+					label="Father"
+					errorMessage={state?.errors?.fatherName}
+				/>
+
+				<TextInput
+					name="motherName"
+					className="mb-3"
+					label="Mother"
+					errorMessage={state?.errors?.motherName}
+				/>
+
+				<SelectInput
+					name="advisorTeacherId"
+					className="mb-3"
+					label="Advisor teacher"
+					errorMessage={state?.errors?.advisorTeacherId}
+					options={advisorTeachers}
+					optionLabel="label"
+					optionValue="value"
 				/>
 
 				<TextInput

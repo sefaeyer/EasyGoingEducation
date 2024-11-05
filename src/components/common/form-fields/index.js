@@ -7,6 +7,10 @@ import { MaskedInput } from "./masked-input";
 import { FormContainer } from "./form-container";
 import { CheckInput } from "./check-input";
 
+import { BackButton } from "./back-button";
+import { MultipleSelect } from "./multiple-select";
+import { TimeInput } from "./time-input";
+
 export {
 	TextInput,
 	PasswordInput,
@@ -16,4 +20,7 @@ export {
 	MaskedInput,
 	FormContainer,
 	CheckInput,
+	BackButton,
+	MultipleSelect,
+	TimeInput,
 };

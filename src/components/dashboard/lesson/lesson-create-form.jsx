@@ -5,8 +5,8 @@ import {
 	FormContainer,
 	SubmitButton,
 	TextInput,
+	BackButton
 } from "@/components/common/form-fields";
-import { BackButton } from "@/components/common/form-fields/back-button";
 import { initialResponse } from "@/helpers/form-validation";
 import { swAlert } from "@/helpers/sweetalert";
 import { useRouter } from "next/navigation";
