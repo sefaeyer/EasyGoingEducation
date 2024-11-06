@@ -35,7 +35,7 @@ const config = {
 			if (isLoggedIn) {
 				if (isInLoginPage) {
 					const url = new URL("dashboard", request.nextUrl.origin);
-					return Response.redirect(url);
+					return Response.redirect(url, 301);
 				} else if (isInDashboardPages) {
 					const isUserAuthorized = getIsUserAuthorized(
 						userRole,

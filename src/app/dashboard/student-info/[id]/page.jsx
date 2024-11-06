@@ -1,35 +1,55 @@
 import { PageHeader } from "@/components/common/page-header/page-header";
 import { Spacer } from "@/components/common/spacer/spacer";
-import { TeacherEditForm } from "@/components/dashboard/teacher/teacher-edit-form";
-import { getAllPrograms } from "@/services/program-service";
-import { getTeacherById } from "@/services/teacher-service";
+import { StudentInfoEditForm } from "@/components/dashboard/student-info/student-info-edit-form";
+import { formatDateMY } from "@/helpers/date-time";
+import { getTermLabel } from "@/helpers/misc";
+import { getAllLessons } from "@/services/lesson-service";
+import { getStudentInfoById } from "@/services/student-info-service";
+import { getAllStudentsByAdvisor } from "@/services/student-service";
+import { getAllTerms } from "@/services/term-service";
 import React from "react";
 
 const Page = async ({ params }) => {
-	const dataTeacher = (await getTeacherById(params.id)).json();
-	const dataPrograms = (await getAllPrograms()).json();
+	const studentsData = (await getAllStudentsByAdvisor()).json();
+	const lessonsData = (await getAllLessons()).json();
+	const termsData = (await getAllTerms()).json();
+	const studentInfoData = (await getStudentInfoById(params.id)).json();
 
-	const [teacher, programs] = await Promise.all([dataTeacher, dataPrograms]);
+	const [studentInfo, students, lessons, terms] = await Promise.all([
+		studentInfoData,
+		studentsData,
+		lessonsData,
+		termsData,
+	]);
 
-	const newPrograms = programs.map((item) => ({
-		value: item.lessonProgramId,
-		label: item.lessonName.map((lesson) => lesson.lessonName).join(" - "),
-	}));
+	let newStudents = [];
+	let newTerms = [];
 
-	const teacherProgramIdList = teacher.object.lessonsProgramList.map(
-		(item) => item.id
-	);
+	if (Array.isArray(students)) {
+		newStudents = students.map((item) => ({
+			value: item.userId,
+			label: `${item.name} ${item.surname}`,
+		}));
+	}
 
-	console.log(teacher.object);
+	if (Array.isArray(terms)) {
+		newTerms = terms.map((item) => ({
+			value: item.id,
+			label: `${getTermLabel(item.term)} - ${formatDateMY(
+				item.startDate
+			)}`,
+		}));
+	}
 
 	return (
 		<>
-			<PageHeader title="Edit Teacher" />
+			<PageHeader title="Edit Info" />
 			<Spacer />
-			<TeacherEditForm
-				programs={newPrograms}
-				user={teacher?.object}
-				teacherProgramIdList={teacherProgramIdList}
+			<StudentInfoEditForm
+				studentInfo={studentInfo}
+				lessons={lessons}
+				students={newStudents}
+				terms={newTerms}
 			/>
 			<Spacer />
 		</>
