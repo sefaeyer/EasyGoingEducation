@@ -20,8 +20,6 @@ const Page = async ({ params }) => {
 		(item) => item.id
 	);
 
-	console.log(teacher.object);
-
 	return (
 		<>
 			<PageHeader title="Edit Teacher" />

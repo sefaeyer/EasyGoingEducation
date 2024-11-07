@@ -27,6 +27,12 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
 	box-shadow: none;
 }
 
+.p-datatable-table{
+	width: 100% !important;
+}
+
+/* BOOTSTRAP */
+
 .form-floating > .form-control.p-multiselect{
      height: auto !important;
 	 display: inline-flex !important;

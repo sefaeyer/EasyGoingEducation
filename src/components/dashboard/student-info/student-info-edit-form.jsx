@@ -30,8 +30,6 @@ export const StudentInfoEditForm = ({
 		if (state.ok) router.push("/dashboard/student-info");
 	}
 
-	console.log(studentInfo)
-
 	return (
 		<FormContainer>
 			<form action={dispatch}>

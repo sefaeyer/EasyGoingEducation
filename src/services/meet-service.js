@@ -16,7 +16,7 @@ export const getAllMeetsByPageForAdvisor = async (page = 0, size = 10) => {
 	});
 };
 
-export const getAllMeetsByPageForStudent = async () => {
+export const getAllMeetsForStudent = async () => {
 	return fetch(`${MEET_GET_BY_STUDENT_API}`, {
 		headers: await getAuthHeader(),
 	});

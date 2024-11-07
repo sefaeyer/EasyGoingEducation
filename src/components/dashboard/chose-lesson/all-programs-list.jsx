@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
@@ -9,10 +9,12 @@ import { formatTimeLT } from "@/helpers/date-time";
 import { SubmitButton } from "@/components/common/form-fields";
 import { assignProgramToStudentAction } from "@/actions/student-actions";
 import { initialResponse } from "@/helpers/form-validation";
-import { useFormState} from "react-dom";
+import { useFormState } from "react-dom";
+import { swAlert } from "@/helpers/sweetalert";
 
 export const AllProgramList = ({ allPrograms }) => {
 	const [selectedItems, setSelectedItems] = useState([]);
+	const [selectedIds, setSelectedIds] = useState([]);
 	const [expandedRows, setExpandedRows] = useState(null);
 	const [state, dispatch] = useFormState(
 		assignProgramToStudentAction,
@@ -38,7 +40,10 @@ export const AllProgramList = ({ allPrograms }) => {
 					<div className="card-title fw-bold">Teachers:</div>
 					<div className="card-text">
 						{row.teachers.map((item) => (
-							<div className="badge bg-secondary me-2">{`${item.name} ${item.surname}`}</div>
+							<div
+								className="badge bg-secondary me-2"
+								key={item.userId}
+							>{`${item.name} ${item.surname}`}</div>
 						))}
 					</div>
 				</div>
@@ -46,7 +51,18 @@ export const AllProgramList = ({ allPrograms }) => {
 		);
 	};
 
-	console.log(selectedItems)
+	const handleSelectionChange = (e) => {
+		setSelectedItems(e.value);
+		setSelectedIds(e.value.map((item) => item.lessonProgramId));
+	};
+
+	useEffect(() => {
+		if (state?.message) {
+			swAlert(state?.message, state?.ok ? "success" : "error");
+		}
+	}, [state?.responseId]);
+
+	console.log(allPrograms);
 
 	return (
 		<Container>
@@ -58,10 +74,13 @@ export const AllProgramList = ({ allPrograms }) => {
 				showGridlines
 				header={header}
 				selection={selectedItems}
-				onSelectionChange={(e) => setSelectedItems(e.value)}
+				onSelectionChange={handleSelectionChange}
 				expandedRows={expandedRows}
 				onRowToggle={(e) => setExpandedRows(e.data)}
 				rowExpansionTemplate={rowExpansionTemplate}
+				className={
+					state?.errors?.lessonProgramId ? "border border-danger" : ""
+				}
 			>
 				<Column expander={true} style={{ width: "5rem" }} />
 				<Column
@@ -79,13 +98,19 @@ export const AllProgramList = ({ allPrograms }) => {
 				<Column body={formatStopTime} header="End" />
 			</DataTable>
 
+			{state?.errors?.lessonProgramId ? (
+				<div className="text-danger mt-2">
+					{state?.errors?.lessonProgramId}
+				</div>
+			) : null}
+
 			<hr className="my-4" />
 
-			<form>
+			<form action={dispatch}>
 				<input
 					type="hidden"
 					name="lessonProgramId"
-					value={JSON.stringify(selectedItems)}
+					value={JSON.stringify(selectedIds)}
 				/>
 				<div className="text-center">
 					<SubmitButton title="Select" size="lg" icon="check" />

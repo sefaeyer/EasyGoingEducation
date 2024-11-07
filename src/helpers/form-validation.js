@@ -8,10 +8,11 @@ export const response = (ok, message, errors) => {
 		ok,
 		message,
 		errors,
+		responseId: Math.random()
 	};
 };
 
-export const initialResponse = response(false, "", null);
+export const initialResponse = response(false, "", null, 0);
 
 export const transformYupErrors = (errors) => {
 	const errObject = {};

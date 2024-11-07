@@ -31,7 +31,6 @@ export const createTeacherAction = async (prevState, formData) => {
 		const data = await res.json();
 
 		if (!res.ok) {
-			console.log(data);
 			return response(false, data?.message, data?.validations);
 		}
 

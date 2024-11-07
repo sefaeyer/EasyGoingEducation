@@ -6,7 +6,7 @@ import {
 } from "@/helpers/api-routes";
 import { getAuthHeader } from "@/helpers/auth-helper";
 
-export const getAllTLessonsByPage = async (
+export const getAllLessonsByPage = async (
 	page = 0,
 	size = 10,
 	sort = "lessonName",
