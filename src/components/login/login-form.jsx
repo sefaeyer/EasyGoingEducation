@@ -26,7 +26,7 @@ export const LoginForm = () => {
 							name="username"
 							className="mb-3"
 							iconBefore="user"
-							defaultValue="root"
+							defaultValue=""// root
 							errorMessage={state?.errors?.username}
 						/>
 						<PasswordInput
@@ -34,7 +34,7 @@ export const LoginForm = () => {
 							name="password"
 							className="mb-3"
 							iconBefore="key"
-							defaultValue="123456aA."
+							defaultValue=""// 123456aA.
 							errorMessage={state?.errors?.password}
 						/>
 						<SubmitButton title="Login" />
