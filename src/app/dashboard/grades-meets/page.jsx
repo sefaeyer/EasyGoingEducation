@@ -16,7 +16,7 @@ const Page = async ({ searchParams }) => {
 
 	return (
 		<>
-			<PageHeader title="Lessons" />
+			<PageHeader title="Grades &amp; Meets" />
 			<Spacer />
 			<GradeList data={grades} />
 			<Spacer />

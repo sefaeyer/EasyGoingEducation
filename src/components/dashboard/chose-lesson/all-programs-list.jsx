@@ -62,8 +62,6 @@ export const AllProgramList = ({ allPrograms }) => {
 		}
 	}, [state?.responseId]);
 
-	console.log(allPrograms);
-
 	return (
 		<Container>
 			<DataTable

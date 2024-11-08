@@ -27,15 +27,24 @@ export const LoadingList = ({ colCount = 4, rowCount = 5 }) => {
 				header={header}
 				className="w-100"
 			>
+				<Column
+					field="code"
+					header={<Skeleton width="1rem" />}
+					style={{ width: `3%` }}
+					body={<Skeleton />}
+				></Column>
+
 				{columns.map((col) => (
 					<Column
 						key={col}
 						field="code"
-						header={<Skeleton width="3rem"/>}
-						style={{ width: `${Math.floor(100 / colCount)}%` }}
+						header={<Skeleton width="3rem" />}
+						style={{ width: `${Math.floor(97 / colCount)}%` }}
 						body={<Skeleton />}
 					></Column>
 				))}
+
+
 			</DataTable>
 		</Container>
 	);
